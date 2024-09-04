@@ -6,11 +6,11 @@ import httpx
 import jwt
 
 
-user_router = APIRouter(
+auth_router = APIRouter(
     tags=["Auth"],
 )
 
-@user_router.post("/auth")
+@auth_router.post("")
 async def auth(data: Auth) -> dict:
     url = "https://api.steampowered.com/ISteamUserAuth/AuthenticateUserTicket/v1/"
     
