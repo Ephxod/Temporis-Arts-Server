@@ -1,9 +1,10 @@
-from pydantic import BaseModel
+from sqlmodel import SQLModel, Field
 
-class Music(BaseModel):
-    music_id: int
-    title: str
-    composer: str
+
+class Music(SQLModel, table=True):
+    music_id: int = Field(primary_key=True, index=True)  # auto_increment 지원
+    title: str = Field(..., index=True)
+    composer: str = Field(..., index=True)
     
     class Config:
         schema_extra = {
@@ -12,3 +13,5 @@ class Music(BaseModel):
                 "composer": "CUT-Turesse"
             }
         }
+    def __repr__(self):
+        return f"<Music(music_id={self.music_id}, title={self.title}, composer={self.composer})>"
