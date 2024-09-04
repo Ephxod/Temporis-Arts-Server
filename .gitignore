@@ -1,6 +1,6 @@
 # Python 가상 환경
 venv/
 config.py
-__pyche__/
-database/__pyche__/
-models/__pyche__/
+__pycache__/
+database/__pycache__/
+models/__pycache__/
