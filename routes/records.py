@@ -21,9 +21,8 @@ async def upsert_record(new_record: Record, session=Depends(get_session), curren
     else:
         session.add(new_record)
     session.commit()
-    session.refresh(new_record if existing_record is None else existing_record)  # 새로 추가된 레코드나 업데이트된 레코드
+    session.refresh(new_record if existing_record is None else existing_record)  
 
-    # score_updated_date를 원하는 형식으로 변환
     updated_date = new_record.score_updated_date.strftime("%Y-%m-%d %H:%M:%S")
     return {
         "datetime": updated_date
