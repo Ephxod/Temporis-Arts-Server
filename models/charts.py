@@ -1,6 +1,5 @@
-from sqlmodel import SQLModel, Field, Relationship
+from sqlmodel import SQLModel, Field, Relationship, UniqueConstraint
 from models.musics import Music
-from sqlalchemy import UniqueConstraint
 
 class Chart(SQLModel, table=True):
     music_id: int = Field(..., foreign_key="music.music_id", primary_key=True)
@@ -8,7 +7,7 @@ class Chart(SQLModel, table=True):
     level: int = Field(..., index=True)
     
     music: Music = Relationship(back_populates="charts")  # 관계 설정
-    
+
     __table_args__ = (
         UniqueConstraint('music_id', 'difficulty', name='uq_music_difficulty'),  # 복합 고유 제약 조건
     )

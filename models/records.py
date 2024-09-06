@@ -7,16 +7,17 @@ from models.charts import Chart
 class Record(SQLModel, table=True):
     user_id: str = Field(..., primary_key=True, foreign_key="user.user_id")
     music_id: int = Field(..., primary_key=True, foreign_key="music.music_id")
-    difficulty: int = Field(..., primary_key=True, foreign_key="chart.difficulty")
+    difficulty: int = Field(..., primary_key=True)  # difficulty 필드는 Chart의 기본 키의 일부임
     high_score: int = Field(..., index=True)
-    clear_status: bool = Field(default=False)  # 기본값 False
-    full_combo_status: bool = Field(default=False)  # 기본값 False
-    all_arts_status: bool = Field(default=False)  # 기본값 False
+    clear_status: bool = Field(default=False)
+    full_combo_status: bool = Field(default=False)
+    all_arts_status: bool = Field(default=False)
     score_updated_date: datetime = Field(index=True)
 
     user: User = Relationship(back_populates="records")
     music: Music = Relationship(back_populates="records")
-    chart: Chart = Relationship(back_populates="records")
+    chart: Chart = Relationship(back_populates="records", sa_relationship_kwargs={"primaryjoin": "and_(Record.music_id == Chart.music_id, Record.difficulty == Chart.difficulty)"})
+
 
     class Config:
         schema_extra = {

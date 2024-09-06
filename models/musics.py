@@ -1,10 +1,13 @@
-from sqlmodel import SQLModel, Field
+from typing import List
+from sqlmodel import SQLModel, Field, Relationship
+
 
 
 class Music(SQLModel, table=True):
     music_id: int = Field(primary_key=True, index=True)  # auto_increment 지원
     title: str = Field(..., index=True)
     composer: str = Field(..., index=True)
+    
     
     class Config:
         schema_extra = {
