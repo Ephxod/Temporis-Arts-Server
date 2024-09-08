@@ -2,15 +2,11 @@ from sqlmodel import SQLModel, Field, Relationship, UniqueConstraint
 from models.musics import Music
 
 class Chart(SQLModel, table=True):
-    music_id: int = Field(..., foreign_key="music.music_id", primary_key=True)
-    difficulty: int = Field(..., primary_key=True)
+    chart_id: int = Field(primary_key=True, index=True)
+    music_id: int = Field(..., foreign_key="music.music_id")
+    difficulty: int = Field(..., index=True)
     level: int = Field(..., index=True)
-    
-    music: Music = Relationship(back_populates="charts")  # 관계 설정
 
-    __table_args__ = (
-        UniqueConstraint('music_id', 'difficulty', name='uq_music_difficulty'),  # 복합 고유 제약 조건
-    )
 
     class Config:
         schema_extra = {
@@ -22,4 +18,4 @@ class Chart(SQLModel, table=True):
         }
         
     def __repr__(self):
-        return f"<Chart(music_id={self.music_id}, difficulty={self.difficulty}, level={self.level})>"
+        return f"<Chart(chart_id={self.chart_id}, music_id={self.music_id}, difficulty={self.difficulty}, level={self.level})>"

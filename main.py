@@ -4,6 +4,7 @@ from routes.users import user_router
 from routes.auths import auth_router
 from routes.records import record_router
 from routes.charts import chart_router
+from config import SSL_PASSWORD
 import uvicorn
 
 app = FastAPI()
@@ -19,4 +20,7 @@ def on_startup():
 
     
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="172.30.1.11", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True,
+                ssl_keyfile="privatekey.pem",
+                ssl_certfile="certificate.pem",
+                ssl_keyfile_password= SSL_PASSWORD)  

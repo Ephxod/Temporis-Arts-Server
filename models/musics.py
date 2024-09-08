@@ -1,6 +1,4 @@
-from typing import List
-from sqlmodel import SQLModel, Field, Relationship
-
+from sqlmodel import SQLModel, Field
 
 
 class Music(SQLModel, table=True):
