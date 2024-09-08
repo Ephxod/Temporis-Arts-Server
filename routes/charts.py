@@ -1,28 +1,28 @@
-from fastapi import APIRouter, Depends, Request, HTTPException, status
+from fastapi import APIRouter, Depends
 from database.connection import get_session
-from models.users import User
 from models.musics import Music
 from models.charts import Chart
 from models.records import Record
+from models.responses.charts import ChartResponse, MusicResponse, ChartsStatsResponse, UserHighScoreResponse, RankingResponse
 from services.auths import get_current_user
 
 chart_router = APIRouter(
     tags=["Chart"],
 )
 
-@chart_router.get("/stats")
-async def get_charts(session=Depends(get_session), current_user: dict = Depends(get_current_user)) -> dict:
+@chart_router.get("/stats", response_model=ChartsStatsResponse)
+async def get_charts(session= Depends(get_session), current_user: dict = Depends(get_current_user)) -> ChartsStatsResponse:
     # 모든 음악 조회
     music_list = session.query(Music).all()
     result = []
     
     for music in music_list:
-        music_data = {
-            "music_id": music.music_id,
-            "title": music.title,
-            "composer": music.composer,
-            "charts": []
-        }
+        music_data = MusicResponse(
+            music_id=music.music_id,
+            title=music.title,
+            composer=music.composer,
+            charts=[]
+        )
         
         # 해당 음악의 차트 조회
         charts = session.query(Chart).filter(Chart.music_id == music.music_id).all()
@@ -51,22 +51,22 @@ async def get_charts(session=Depends(get_session), current_user: dict = Depends(
                 clear_rate = 0
                 full_combo_rate = 0
 
-            # 차트 데이터 추가
-            chart_data = {
-                "difficulty": chart.difficulty,
-                "level": chart.level,
-                "avg_score": avg_score,
-                "clear_rate": clear_rate,
-                "full_combo_rate": full_combo_rate
-            }
-            music_data["charts"].append(chart_data)
+            # 차트 데이터 생성
+            chart_data = ChartResponse(
+                difficulty=chart.difficulty,
+                level=chart.level,
+                avg_score=avg_score,
+                clear_rate=clear_rate,
+                full_combo_rate=full_combo_rate
+            )
+            music_data.charts.append(chart_data)
 
         result.append(music_data)
 
-    return {"data": result}
+    return ChartsStatsResponse(data=result)
 
-@chart_router.get("/ranking")
-async def get_ranking(music_id: int, difficulty: int, session=Depends(get_session)) -> dict:
+@chart_router.get("/ranking", response_model=RankingResponse)
+async def get_ranking(music_id: int, difficulty: int, session=Depends(get_session)) -> RankingResponse:
     # 해당 음악과 난이도에 대한 기록 조회
     records = session.query(Record).filter(
         Record.music_id == music_id,
@@ -76,15 +76,13 @@ async def get_ranking(music_id: int, difficulty: int, session=Depends(get_sessio
         Record.score_updated_date.asc()  # 동점일 경우 score_updated_date 오름차순 정렬
     ).limit(10).all()
 
-    # 결과를 리스트 형태로 변환
     result = []
     for record in records:
-        result.append({
-            "user_id": record.user_id,
-            "name": record.name,
-            "high_score": record.high_score,
-            "score_updated_date": record.score_updated_date.strftime("%Y-%m-%d %H:%M:%S")
-        })
+        result.append(UserHighScoreResponse(
+            user_id=record.user_id,
+            name=record.name,
+            high_score=record.high_score,
+            score_updated_date=record.score_updated_date
+        ))
 
-    # 결과를 dict 형태로 반환
-    return {"data": result}
+    return RankingResponse(data=result)

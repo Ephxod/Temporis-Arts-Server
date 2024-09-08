@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel, Field
 
-class User(SQLModel, table=True):  # SQLModel을 상속받고 table=True를 설정
-    user_id: str = Field(..., primary_key=True, index=True)  # PK 설정
+class User(SQLModel, table=True):  
+    user_id: str = Field(..., primary_key=True, index=True) 
     name: str = Field(..., index=True)
 
     class Config:

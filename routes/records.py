@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, Request, HTTPException, status
 from database.connection import get_session
 from models.records import Record
+from models.responses.message import MessageResponse
+from models.responses.datetime import DatetimeResponse
 from datetime import datetime, timezone
 from services.auths import get_current_user
 
@@ -9,7 +11,7 @@ record_router = APIRouter(
 )
 
 
-@record_router.post("")
+@record_router.post("", response_model= DatetimeResponse)
 async def upsert_record(new_record: Record, session=Depends(get_session), current_user: dict = Depends(get_current_user)) -> dict:
     new_record.score_updated_date = datetime.now(timezone.utc)
     existing_record = session.get(Record, (new_record.user_id, new_record.music_id, new_record.difficulty))
@@ -23,12 +25,10 @@ async def upsert_record(new_record: Record, session=Depends(get_session), curren
     session.commit()
     session.refresh(new_record if existing_record is None else existing_record)  
 
-    updated_date = new_record.score_updated_date.strftime("%Y-%m-%d %H:%M:%S")
-    return {
-        "datetime": updated_date
-    }
+    
+    return DatetimeResponse(datetime = new_record.score_updated_date)
 
-@record_router.patch("")
+@record_router.patch("", response_model=MessageResponse)
 async def update_record_status(new_record: Record, session=Depends(get_session), current_user: dict = Depends(get_current_user)) -> dict:
     existing_record = session.get(Record, (new_record.user_id, new_record.music_id, new_record.difficulty))
 
@@ -41,6 +41,4 @@ async def update_record_status(new_record: Record, session=Depends(get_session),
     session.commit()
     session.refresh(existing_record) 
 
-    return {
-        "msg" : "Success"
-    }
+    return MessageResponse("Success")
