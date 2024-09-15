@@ -4,6 +4,9 @@ config.py
 __pycache__/
 database/__pycache__/
 models/__pycache__/
+test/__pycache__/
+htmlcov/
 certificate.pem
 certificate.pfx
 privatekey.pem
+.coverage

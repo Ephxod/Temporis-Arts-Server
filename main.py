@@ -9,6 +9,7 @@ import uvicorn
 
 app = FastAPI()
 
+
 app.include_router(user_router, prefix="/api/users")
 app.include_router(auth_router, prefix="/api/auth")
 app.include_router(record_router, prefix="/api/records")
