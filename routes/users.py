@@ -10,9 +10,9 @@ user_router = APIRouter(
 
 
 @user_router.post("",response_model=MessageResponse)
-async def create_user(new_user: User, session=Depends(get_session), current_user: dict = Depends(get_current_user)) -> dict:
+async def create_user(new_user: User, session=Depends(get_session), current_user: dict = Depends(get_current_user)) -> MessageResponse:
     session.add(new_user)
     session.commit()
     session.refresh(new_user)
     
-    return MessageResponse("Success")
+    return MessageResponse(msg="Success")

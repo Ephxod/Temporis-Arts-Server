@@ -15,7 +15,7 @@ class Record(SQLModel, table=True):
     all_arts_status: bool = Field(default=False)
     score_updated_date: datetime = Field(index=True)
 
-  
+    user: "User" = Relationship()
 
     class Config:
         schema_extra = {
