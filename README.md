@@ -6,9 +6,20 @@
   </a> &nbsp;
   <a href="https://awesome-woodwind-237.notion.site/Temporis-Arts-Backend-e5e0529541c649dda8e2581e487239b9">
     <img width="3%" src="https://github.com/user-attachments/assets/c2569156-f4fa-4833-82b2-c308a8e6ac2c"/>
+  </a> &nbsp;
+  <a href="https://discord.com/invite/JSyTr3psnb">
+    <img width="3%" src="https://github.com/user-attachments/assets/6ec582ce-3e05-4c6a-aea1-2043dbb78aae"/>
+  </a> &nbsp;
+  <a href="https://x.com/ChronosSyndrome?t=x-nqB5ltzv3fyx_4m4UeTw&s=32">
+    <img width="3%" src="https://github.com/user-attachments/assets/366f5d11-658d-4a34-be64-b0cf691860fb"/>
   </a>
 </div>
 <br/><br/><br/><br/><br/>
+
+
+
+
+
 
 
 
