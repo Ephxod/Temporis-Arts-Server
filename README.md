@@ -11,9 +11,10 @@
 <br/><br/><br/><br/><br/>
 
 
+
 ## 🗨️ About Temporis Arts
 <div align="center">
-  <img width="70%" src="https://github.com/user-attachments/assets/004842c2-f890-484b-863d-5e1898881b57"/>
+  <img width="70%" src="https://github.com/user-attachments/assets/19c6a1e9-b3d5-4ab1-87d5-41bd313e64e4"/>
 </div>
 <br /><br />
 Temporis Arts는 원판 위를 회전하는 판정선을 따라, 그리고 음악에 맞춰 키를 누르는 게임입니다.<br /> <br />
