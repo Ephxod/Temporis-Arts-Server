@@ -6,7 +6,14 @@ database/__pycache__/
 models/__pycache__/
 test/__pycache__/
 htmlcov/
+certificates/
 certificate.pem
 certificate.pfx
 privatekey.pem
 .coverage
+.env.prod
+.dockerignore
+docker-compose.yml
+Dockerfile
+Dockerfile.nginx
+nginx.conf

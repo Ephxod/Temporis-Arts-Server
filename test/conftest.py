@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 
 @pytest.fixture(scope="session")
 async def default_client():
-    async with httpx.AsyncClient(app=app, base_url="https://app") as client:
+    async with httpx.AsyncClient(app=app, base_url="http://app") as client:
         session = next(get_session())
         try:
             session.exec(text("DELETE FROM record"))
