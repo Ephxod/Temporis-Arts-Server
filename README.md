@@ -36,6 +36,11 @@ Temporis Arts는 원판 위를 회전하는 판정선을 따라, 그리고 음�
 밤하늘에 펼쳐진 별들을 발견하고, 새로운 곡을 획득해보세요!  
 <br /><br /><br /><br /><br />
 
+## ⚙️ System Architecture  
+
+<img width="600px" src='https://github.com/user-attachments/assets/26918da3-5de0-4154-b4ed-d55b18804e82'/>  
+<br /><br />
+
 ## 🛠️ 기술 스택
 
 **BE**
