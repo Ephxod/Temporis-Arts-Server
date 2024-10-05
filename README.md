@@ -66,7 +66,7 @@ SYSTEM : `PostgreSQL 15.8`
 
 Cloud : `AWS EC2`
 
-Reverse Proxy, Secure : `Nginx`
+Reverse Proxy, Secure : `AWS ELB`
 
 CI/CD : `Docker 24.0.5`
 
