@@ -38,7 +38,9 @@ Temporis Arts는 원판 위를 회전하는 판정선을 따라, 그리고 음�
 
 ## ⚙️ System Architecture  
 
-<img width="600px" src='https://github.com/user-attachments/assets/26918da3-5de0-4154-b4ed-d55b18804e82'/>  
+
+
+<img width="600px" src='https://github.com/user-attachments/assets/a1dd22cd-f647-49da-8197-e793ca121c6b'/>  
 <br /><br />
 
 ## 🛠️ 기술 스택
