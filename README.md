@@ -40,7 +40,8 @@ Temporis Arts는 원판 위를 회전하는 판정선을 따라, 그리고 음�
 
 
 
-<img width="600px" src='https://github.com/user-attachments/assets/a1dd22cd-f647-49da-8197-e793ca121c6b'/>  
+
+<img width="800px" src='https://github.com/user-attachments/assets/e0689aab-7f42-44c8-800d-b9d2da4f4d62'/>  
 <br /><br />
 
 ## 🛠️ 기술 스택
