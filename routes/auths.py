@@ -47,7 +47,7 @@ async def auth(data: Auth) -> AuthResponse:
         )    
     payload = {
         "sub": string_ticket,  # 사용자 식별 정보
-        "exp": datetime.datetime.now(timezone.utc) + datetime.timedelta(hours=1)  # 만료 시간 설정
+        "exp": datetime.datetime.now(timezone.utc) + datetime.timedelta(hours=6)  # 만료 시간 설정
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
