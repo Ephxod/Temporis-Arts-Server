@@ -37,18 +37,17 @@ async def test_get_ranking(default_client: httpx.AsyncClient, create_test_jwt_to
         "Authorization": f"Bearer {jwt_token}",
     }
 
-    music_id = 0
-    difficulty = 0
+    chart_id = '0_0'
 
     response = await default_client.get(
-        f"/api/charts/ranking?music_id={music_id}&difficulty={difficulty}",
+        f"/api/charts/ranking?chart_id={chart_id}",
         headers=headers,
     )
 
     assert response.status_code == 200
     assert isinstance(response.json(), dict)  
-    assert "data" in response.json()
-    data = response.json()["data"]
+    assert "easy" in response.json()
+    data = response.json()["easy"]
     assert len(data) > 0  
     assert data[0]["user_id"] == "testid0"
     assert data[0]["name"] == "testname" 

@@ -3,8 +3,10 @@ from typing import List
 from datetime import datetime
 
 class ChartResponse(BaseModel):
+    chart_id: str
     difficulty: int
     level: int
+    judgement: int
     avg_score: float
     clear_rate: float
     full_combo_rate: float
@@ -29,6 +31,7 @@ class UserHighScoreResponse(BaseModel):
         return value.strftime("%Y-%m-%d %H:%M:%S")  # 원하는 형식으로 변환
     
 class RankingResponse(BaseModel):
-    data: List[UserHighScoreResponse]
+    easy: List[UserHighScoreResponse]
+    hard: List[UserHighScoreResponse]
 
     

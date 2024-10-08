@@ -5,7 +5,7 @@ import httpx
 async def test_create_user(default_client: httpx.AsyncClient, create_test_jwt_token: str) -> None:
     jwt_token = create_test_jwt_token
     payload = {
-        "user_id": "testid1",
+        "user_id": "testid2",
         "name": "testname"
     }
     headers = {
