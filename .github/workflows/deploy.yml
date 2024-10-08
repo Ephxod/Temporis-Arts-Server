@@ -21,7 +21,7 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t yungi1026/temporis-arts-was:1.0 /home/ubuntu
+        docker build -t yungi1026/temporis-arts-was:1.0 ./home/ubuntu
         docker push yungi1026/temporis-arts-was:1.0
 
     - name: Deploy to EC2
