@@ -1,21 +1,21 @@
 import pytest
-from fastapi.testclient import TestClient
 import httpx
 from models.users import User
 from models.musics import Music
 from models.charts import Chart
+from sqlalchemy.orm import Session
+from models.records import Record
 
 @pytest.fixture
 def sample_record() -> dict:
     return {
         "user_id": "testid0",
-        "music_id": 0,
-        "difficulty": 1,
-        "high_score": 4567890,
+        "chart_id": "0_1",
+        "judgement": 0,
     }
 
 @pytest.mark.usefixtures("default_client", "create_test_jwt_token")
-async def test_upsert_record(default_client: httpx.AsyncClient, create_test_jwt_token: str, sample_record: dict) -> None:
+async def test_create_record(default_client: httpx.AsyncClient, create_test_jwt_token: str, sample_record: dict,  db_session: Session) -> None:
     jwt_token = create_test_jwt_token
     headers = {
         "Content-Type": "application/json",
@@ -25,13 +25,20 @@ async def test_upsert_record(default_client: httpx.AsyncClient, create_test_jwt_
     # 레코드 생성
     response = await default_client.post("/api/records", json=sample_record, headers=headers)
     assert response.status_code == 200
-    assert "datetime" in response.json()
+    assert response.json().get("msg") == "Success"
 
-    # 레코드 업데이트 테스트
-    sample_record["high_score"] = 5000000 # 새로운 점수로 업데이트
+    # 동일한 레코드로 다시 요청
     response = await default_client.post("/api/records", json=sample_record, headers=headers)
     assert response.status_code == 200
-    assert "datetime" in response.json()
+    assert response.json().get("msg") == "Success"
+
+
+    existing_record = db_session.query(Record).filter(
+        Record.user_id == sample_record["user_id"],
+        Record.chart_id == sample_record["chart_id"],
+        Record.judgement == sample_record["judgement"]
+    ).one() 
+    assert existing_record.play_count == 2  
 
 @pytest.mark.usefixtures("default_client", "create_test_jwt_token")
 async def test_update_record_status(default_client: httpx.AsyncClient, create_test_jwt_token: str, sample_record: dict) -> None:
@@ -42,8 +49,9 @@ async def test_update_record_status(default_client: httpx.AsyncClient, create_te
     }
     payload = {
         "user_id": "testid0",
-        "music_id": 0,
-        "difficulty": 0,
+        "chart_id": "0_0",
+        "judgement": 0,
+        "high_score": 1000000, \
         "clear_status": True, \
         "full_combo_status": False, \
         "all_arts_status":  False 
@@ -51,10 +59,6 @@ async def test_update_record_status(default_client: httpx.AsyncClient, create_te
     test_response = {
         "msg": "Success"
     }
-
-    # 레코드 생성
-    response = await default_client.post("/api/records", json=sample_record, headers=headers)
-    assert response.status_code == 200
 
     # 레코드 상태 업데이트 테스트
     response = await default_client.patch("/api/records", json=payload, headers=headers)
@@ -70,8 +74,9 @@ async def test_update_nonexistent_record(default_client: httpx.AsyncClient, crea
     }
     payload = {
         "user_id": "testid1",
-        "music_id": 0,
-        "difficulty": 0,
+        "chart_id": "0_1",
+        "judgement": 0,
+        "high_score": 1000000, \
         "clear_status": True, \
         "full_combo_status": False, \
         "all_arts_status":  False 

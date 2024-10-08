@@ -1,7 +1,8 @@
 from sqlmodel import SQLModel, Field, Relationship, UniqueConstraint
+from models.musics import Music
 
 class Chart(SQLModel, table=True):
-    chart_id: int = Field(primary_key=True, index=True)
+    chart_id: str = Field(primary_key=True, index=True)
     music_id: int = Field(..., foreign_key="music.music_id")
     difficulty: int = Field(..., index=True)
     level: int = Field(..., index=True)
@@ -9,6 +10,7 @@ class Chart(SQLModel, table=True):
     class Config:
         schema_extra = {
             "example": {
+                "chart_id": "0_1",
                 "music_id": 1,
                 "difficulty": 0,
                 "level": 8
