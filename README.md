@@ -71,7 +71,7 @@ Cloud : `AWS EC2`
 
 Reverse Proxy, Secure : `AWS ELB`
 
-CI/CD : `Docker 24.0.5`
+CI/CD : `Docker 24.0.5`, `Github Actions`
 
 <br />
 Python, FastAPI의 의존성 패키지는 requirements.txt 참조.
