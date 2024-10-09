@@ -46,7 +46,12 @@ Temporis Arts는 원판 위를 회전하는 판정선을 따라, 그리고 음�
 - ELB를 사용해 SSL/TLS 인증서를 관리하여 HTTPS 연결을 지원하고 리버스 프록시를 통해 보안성을 높혔습니다.   <br/>
 - Slave DB를 두어 데이터의 변경 이벤트가 발생되면 변경 사항을 Slave DB에 반영해 동기화를 맞춥니다.   <br/>
 - Docker와 Github Actions를 사용해 배포를 자동화 하였습니다.   <br/>
-<br /><br />
+<br /><br /><br /><br />
+
+## 🏢 ERD 
+<img width="800px" src='https://github.com/user-attachments/assets/3c7e4629-e5f8-45a0-bb3b-1be24d20f437'/> 
+<br /><br /><br /><br />
+
 
 ## 🛠️ 기술 스택
 
