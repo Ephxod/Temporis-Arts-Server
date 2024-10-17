@@ -24,15 +24,20 @@ jobs:
         docker build -t yungi1026/temporis-arts-was:1.0 .
         docker push yungi1026/temporis-arts-was:1.0
 
+    - name: Create PEM file
+      run: |
+        echo "${{ secrets.EC2_KEY }}" > ec2-key.pem
+        chmod 600 ec2-key.pem
+
+    - name: Test SSH Connection to EC2
+      run: |
+          ssh -i ec2-key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo 'SSH connection successful'"
+
     - name: Deploy to EC2
-      uses: appleboy/ssh-action@v0.1.4
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_KEY }}
-        port: 22
-        script: |
-          cd /home/ubuntu
-          docker-compose down
-          docker-compose pull
-          docker-compose up -d
+      run: |
+        ssh -i ec2-key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /home/${{ secrets.EC2_USER }}
+        docker-compose down
+        docker-compose pull
+        docker-compose up -d
+        EOF
