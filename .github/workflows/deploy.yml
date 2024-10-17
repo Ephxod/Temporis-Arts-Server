@@ -41,3 +41,22 @@ jobs:
         docker-compose pull
         docker-compose up -d
         EOF
+        
+    - name: Use Github Secrets
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+        APP_ID: ${{ secrets.APP_ID }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      run: |
+        echo "API_KEY: $API_KEY"
+        echo "APP_ID: $APP_ID"
+        echo "DATABASE_URL: $DATABASE_URL"
+        echo "DOCKER_PASSWORD: $DOCKER_PASSWORD"
+        echo "DOCKER_USERNAME: $DOCKER_USERNAME"
+        echo "POSTGRES_PASSWORD: $POSTGRES_PASSWORD"
+        echo "SECRET_KEY: $SECRET_KEY"
+  
