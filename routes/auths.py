@@ -18,7 +18,7 @@ auth_router = APIRouter(
 async def auth(data: Auth, session: Session = Depends(get_session)) -> AuthResponse:
     body = data.json()
     print("Received request:", body) 
-    url = "https://api.steampowered.com/ISteamUserAuth/AuthenticateUserTicket/v1/"
+    url = "https://api.steampowered.com/ISteamUserAuth/AuthenticateUserTicket/v1"
     string_ticket = base64.b64decode(data.user_ticket).hex()
     params = {
         "key": API_KEY,
@@ -34,7 +34,7 @@ async def auth(data: Auth, session: Session = Depends(get_session)) -> AuthRespo
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="STEAM으로 인증 실패",
         )
-    result = await response.json()
+    result = response.json()
 
     print("result from STEAM:", result) 
     
