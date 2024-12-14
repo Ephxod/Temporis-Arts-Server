@@ -2,13 +2,13 @@ from sqlmodel import SQLModel, Field, Relationship
 from datetime import datetime
 from models.users import User
 from models.charts import Chart
-
+from typing import Optional
 
 class Record(SQLModel, table=True):
     record_id: int = Field(primary_key=True, index=True)
     user_id: str = Field(..., foreign_key="user.user_id")
     chart_id: str = Field(..., foreign_key="chart.chart_id")
-    high_score: int = Field(index=True, default=0)
+    high_score: Optional[int] = Field(None, index=True)
     clear_status: bool = Field(default=False)
     full_combo_status: bool = Field(default=False)
     all_arts_status: bool = Field(default=False)
